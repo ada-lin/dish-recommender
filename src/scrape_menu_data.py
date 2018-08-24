@@ -18,6 +18,7 @@ def get_site_pages(page_list, n_pages):
     '''
     for i in range(2, n_pages+1):
         page_list.append('https://menupages.com/restaurants/ny-new-york/'+str(i))
+
     return page_list
 
 
@@ -40,6 +41,7 @@ def get_menu_urls(page_list):
         soup = BeautifulSoup(txt, 'html.parser')
         for item in soup.find_all(class_='restaurant__title'):
             menu_urls.append('https://menupages.com'+item.find('a')['href'])
+
     return menu_urls
 
 
@@ -100,5 +102,5 @@ if __name__ == '__main__':
     print('get menu urls completed')
 
     restaurant_list = scrape_menu_data(menu_urls)
-    with open('data/menus_new.json', 'w') as f:
+    with open('data/menus.json', 'w') as f:
         json.dump(restaurant_list, f)
