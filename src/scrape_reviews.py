@@ -149,6 +149,7 @@ def get_reviews(review_urls):
 
             rest_dict = {'phone': phone}
             rest_dict['reviews'] = reviews
+            rest_dict['url'] = url
 
             yelp_reviews.append(rest_dict)
 
@@ -174,6 +175,8 @@ if __name__ == '__main__':
     print('clean business data completed')
 
     review_urls = get_urls(cleaned_data)
+    with open('data/review_urls.pkl', 'w') as f:
+        pickle.dump(review_urls, f)
     print('get review page URLs completed')
 
     yelp_reviews = get_reviews(review_urls)
