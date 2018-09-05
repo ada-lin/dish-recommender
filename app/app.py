@@ -3,8 +3,6 @@ import pymongo
 import json
 import pickle
 import requests
-# from src.model import *
-from difflib import get_close_matches
 
 
 app = Flask(__name__)

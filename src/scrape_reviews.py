@@ -175,7 +175,7 @@ if __name__ == '__main__':
     print('clean business data completed')
 
     review_urls = get_urls(cleaned_data)
-    with open('data/review_urls.pkl', 'w') as f:
+    with open('data/review_urls.pkl', 'wb') as f:
         pickle.dump(review_urls, f)
     print('get review page URLs completed')
 
