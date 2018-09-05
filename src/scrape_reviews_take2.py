@@ -9,7 +9,7 @@ def get_more_pages(review_urls):
     '''
     page2_urls = [r+'?start=20' for r in review_urls]
     page3_urls = [r+'?start=40' for r in review_urls]
-    return (review_urls + page2_urls + page3_urls)
+    return (page2_urls + page3_urls)
 
 
 def get_reviews(review_urls):
@@ -46,9 +46,7 @@ def get_reviews(review_urls):
             rest_dict = {'url': url}
             rest_dict['reviews'] = reviews
             yelp_reviews.append(rest_dict)
-
             print(len(reviews))
-            time.sleep(2)
 
         except AttributeError:
             print('error at index ', i)
@@ -62,11 +60,15 @@ if __name__ == '__main__':
     with open('data/review_urls.pkl', 'rb') as f:
         review_urls = pickle.load(f)
 
-    all_urls = get_more_pages(review_urls)
+    page_one = get_reviews(review_urls)
+    with open('data/reviews_pg1.json', 'w') as f:
+        json.dump(page_one, f)
+    print('first page reviews done')
 
-    yelp_reviews = get_reviews(all_urls)
+    two_three_urls = get_more_pages(review_urls)
+    pages_two_three = get_reviews(two_three_urls)
 
-    with open('data/reviews_take2.json', 'w') as f:
-        json.dump(yelp_reviews, f)
+    with open('data/reviews_pg23.json', 'w') as f:
+        json.dump(pages_two_three, f)
 
     print('get Yelp reviews completed...done scraping!')
