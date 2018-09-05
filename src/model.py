@@ -142,20 +142,25 @@ class DishRanker(object):
 
 if __name__ == '__main__':
 
-# set up MongoClient instance
+    # set up MongoClient instance
     client = pymongo.MongoClient()
     db_name = 'nyc_restaurants'
     db = client[db_name]
-    db.drop_collection('recommendations')
+    # db.drop_collection('recommendations')
     collection_name = 'recommendations'
     RECS = db[collection_name]
     RECS.create_index([('name', ASCENDING)], unique=False)
 
-# Load 'reviews' data
+    # Load 'reviews' data
     with open('data/reviews_clean.json', 'rb') as f:
         data = json.load(f)
 
-# Run model on each restaurant in dataset and store results to MongoDB
+    # Pickle list of restaurant names, to be used in web app
+    restaurant_names = [d['menu_data'][0]['name'] for d in data]
+    with open('data/restaurant_names.pkl', 'wb') as f:
+        pickle.dump(restaurant_names, f)
+
+    # Run model on each restaurant in dataset and store results to MongoDB
     for i, d in enumerate(data):
         print(i, 'of', len(data))
 
