@@ -9,8 +9,7 @@ def get_more_pages(review_urls):
     '''
     page2_urls = [r+'?start=20' for r in review_urls]
     page3_urls = [r+'?start=40' for r in review_urls]
-    page4_urls = [r+'?start=60' for r in review_urls]
-    return (page2_urls + page3_urls + page4_urls)
+    return (page2_urls + page3_urls)
 
 def get_reviews(review_urls):
     ''' Scrape reviews from each page
