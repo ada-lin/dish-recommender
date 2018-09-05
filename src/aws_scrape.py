@@ -37,6 +37,7 @@ def get_reviews(review_urls):
 
             rest_dict = {'url': url}
             rest_dict['reviews'] = reviews
+            print(len(reviews))
 
             yelp_reviews.append(rest_dict)
 
