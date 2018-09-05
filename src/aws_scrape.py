@@ -41,7 +41,7 @@ def get_reviews(review_urls):
             print(len(reviews))
 
             yelp_reviews.append(rest_dict)
-            time.sleep(5)
+            time.sleep(2)
 
         except AttributeError:
             print('error at index ', i)
