@@ -2,14 +2,19 @@ import json
 import requests
 from bs4 import BeautifulSoup
 import pickle
+import time
 
 
-def get_more_pages(review_urls):
+def get_page_two(review_urls):
     '''
     '''
-    page2_urls = [r+'?start=20' for r in review_urls]
-    page3_urls = [r+'?start=40' for r in review_urls]
-    return (page2_urls + page3_urls)
+    return [r+'?start=20' for r in review_urls]
+
+
+def get_page_three(review_urls):
+    '''
+    '''
+    return [r+'?start=40' for r in review_urls]
 
 
 def get_reviews(review_urls):
@@ -32,7 +37,7 @@ def get_reviews(review_urls):
         print(i, ' of ', len(review_urls))
 
         try:
-            r = requests.get(url)
+            r = requests.get(url, verify=False)
             soup = BeautifulSoup(r.text, 'html.parser')
 
             reviews = []
@@ -45,10 +50,12 @@ def get_reviews(review_urls):
 
             rest_dict = {'url': url}
             rest_dict['reviews'] = reviews
+
             yelp_reviews.append(rest_dict)
             print(len(reviews))
+            time.sleep(2)
 
-        except AttributeError:
+        except (AttributeError, requests.exceptions.SSLError, requests.ConnectionError, requests.Timeout, KeyboardInterrupt):
             print('error at index ', i)
             continue
 
@@ -63,12 +70,19 @@ if __name__ == '__main__':
     page_one = get_reviews(review_urls)
     with open('data/reviews_pg1.json', 'w') as f:
         json.dump(page_one, f)
-    print('first page reviews done')
+    print('first page reviews scraped')
 
-    two_three_urls = get_more_pages(review_urls)
-    pages_two_three = get_reviews(two_three_urls)
+    urls_2 = get_page_two(review_urls)
+    urls_3 = get_page_three(review_urls)
 
-    with open('data/reviews_pg23.json', 'w') as f:
-        json.dump(pages_two_three, f)
+    page_two = get_reviews(urls_2)
+    with open('data/reviews_pg2.json', 'w') as f:
+        json.dump(page_two, f)
+    print('second page reviews scraped')
 
-    print('get Yelp reviews completed...done scraping!')
+    page_three = get_reviews(urls_3)
+    with open('data/reviews_pg3.json', 'w') as f:
+        json.dump(page_three, f)
+    print('third page reviews scraped')
+
+    print('all three pages of reviews scraped successfully...we are done!')
