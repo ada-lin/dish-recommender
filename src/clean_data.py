@@ -80,7 +80,7 @@ def clean_data(reviews, menus, urls, biz_data):
                 reviews[m].update({'menu_data': [l]})
 
     ## Step 7: getting rid of unmatchable menus by restaurant name
-    unmatched = [i for i, r in enumerate(reviews) if len(r['menu_data']) > 1]
+    unmatched = [i for i, r in enumerate(reviews) if len(r['menu_data']) > 1 or len(r['menu_data']) == 0]
     reviews_clean = [i for j, i in enumerate(reviews) if j not in unmatched]
 
     return reviews_clean
