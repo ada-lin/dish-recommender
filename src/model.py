@@ -1,4 +1,5 @@
 import json
+import pickle
 import numpy as np
 from textblob import TextBlob
 from nltk.tokenize import sent_tokenize
@@ -169,7 +170,8 @@ if __name__ == '__main__':
         rest_name = d['menu_data'][0]['name']
         rest_address = d['menu_data'][0]['address']
         rest_phone = d['menu_data'][0]['phone']
-        rest_url = d['url']
+        rest_yelp_url = d['url']
+        rest_menu_url = d['menu_data'][0]['menu_url']
 
         try:
             dr = DishRanker()
@@ -178,7 +180,8 @@ if __name__ == '__main__':
             worst = dr.worst_items()
 
             mongo_insert = {'name': rest_name,
-                            'yelp_url': rest_url,
+                            'yelp_url': rest_yelp_url,
+                            'menu_url': rest_menu_url,
                             'phone': rest_phone,
                             'address': rest_address,
                             'best': best,

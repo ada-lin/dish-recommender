@@ -17,12 +17,13 @@ def display_recs():
     input = str(request.form['restaurant_name'])
     results = list(RECS.find({'name': input}))[0]
     name = results['name']
-    url = results['yelp_url']
+    yelp_url = results['yelp_url']
+    menu_url = results['menu_url']
     phone = results['phone']
     address = results['address']
     best = results['best']
     worst = results['worst']
-    return render_template('cheatsheet.html', name=name, url=url, phone=phone, address=address, best=best, worst=worst)
+    return render_template('cheatsheet.html', name=name, yelp=yelp_url, menu=menu_url, phone=phone, address=address, best=best, worst=worst)
 
 
 if __name__ == '__main__':
