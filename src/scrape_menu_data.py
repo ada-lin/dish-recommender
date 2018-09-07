@@ -76,6 +76,7 @@ def scrape_menu_data(menu_urls):
         restaurant['name'] = name[0].text.strip()
         restaurant['address'] = soup.find_all(class_='header__restaurant-address')[0].text.strip()
         restaurant['phone'] = soup.find_all(class_='restaurant-phone')[0].find('a')['href'].replace('tel:','')
+        restaurant['menu_url'] = menu
 
         print(restaurant['name'])
 
@@ -96,14 +97,17 @@ def scrape_menu_data(menu_urls):
 
 
 if __name__ == '__main__':
-    page_list = get_site_pages(['https://menupages.com/restaurants/ny-new-york'], 86)
-    print('get site pages completed')
+    # page_list = get_site_pages(['https://menupages.com/restaurants/ny-new-york'], 86)
+    # print('get site pages completed')
+    #
+    # menu_urls = get_menu_urls(page_list)
+    # with open('data/menu_urls.pkl', 'wb') as f:
+    #     pickle.dump(menu_urls, f)
+    # print('get menu urls completed')
 
-    menu_urls = get_menu_urls(page_list)
-    with open('data/menu_urls.pkl', 'wb') as f:
-        pickle.dump(menu_urls, f)
-    print('get menu urls completed')
+    with open('data/menu_urls.pkl', 'rb') as f:
+        menu_urls = pickle.load(f)
 
-    # restaurant_list = scrape_menu_data(menu_urls)
-    # with open('data/menus.json', 'w') as f:
-    #     json.dump(restaurant_list, f)
+    menu_data = scrape_menu_data(menu_urls)
+    with open('data/menus.json', 'w') as f:
+        json.dump(menu_data, f)
