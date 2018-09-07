@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import pickle
 
 
 def get_site_pages(page_list, n_pages):
@@ -99,8 +100,10 @@ if __name__ == '__main__':
     print('get site pages completed')
 
     menu_urls = get_menu_urls(page_list)
+    with open('data/menu_urls.pkl', 'wb') as f:
+        pickle.dump(menu_urls, f)
     print('get menu urls completed')
 
-    restaurant_list = scrape_menu_data(menu_urls)
-    with open('data/menus.json', 'w') as f:
-        json.dump(restaurant_list, f)
+    # restaurant_list = scrape_menu_data(menu_urls)
+    # with open('data/menus.json', 'w') as f:
+    #     json.dump(restaurant_list, f)

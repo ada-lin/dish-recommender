@@ -164,7 +164,7 @@ if __name__ == '__main__':
     for i, d in enumerate(data):
         print(i, 'of', len(data))
 
-        review = d['reviews']
+        review = [r[1] for r in d['reviews']]
         menu = d['menu_data'][0]['menu']
         rest_name = d['menu_data'][0]['name']
         rest_address = d['menu_data'][0]['address']

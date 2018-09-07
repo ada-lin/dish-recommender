@@ -19,10 +19,6 @@ def clean_data(reviews, menus, urls, biz_data):
 
     '''
 
-    # Format scraped Yelp phone numbers
-    for r in reviews:
-        r['phone'] = '+1'+r['phone'].replace('+','')
-
     # Convert menu prices from string to float
     for m in menus:
         for v in m['menu'].values():
@@ -31,21 +27,25 @@ def clean_data(reviews, menus, urls, biz_data):
     for m in menus:
         m['menu'] = {k:v for k,v in m['menu'].items() if v[1] >= 3}
 
-    # Add restaurant name and corrected phone number to 'reviews' list
-    ## Step 1: clean the 'urls' list so that it matches up correctedly with reviews data
-    remove_indices = [264, 1347, 1919, 2223]
-    clean_urls = [i for j, i in enumerate(urls) if j not in remove_indices]
-    sep = '?adjust_creative'
-    clean_urls = [n.split(sep)[0] for u in clean_urls]
+    # Clean 'reviews' data--
+    ## Step 1: remove restaurants with empty review results and adjust the 'urls' list
+    ## so that it matches up correctedly with cleaned reviews data
+    remove_indices = [i for i, r in enumerate(reviews) if len(r['reviews']) == 0]
+    reviews = [i for j, i in enumerate(reviews) if j not in remove_indices]
+    urls = [i for j, i in enumerate(urls) if j not in remove_indices]
 
     ## Step 2: flatten 'businesses' lists from 'biz_data' into one 'lookup' list
+    ## and remove utm tags from urls
     lookup = [b['businesses'] for b in biz_data]
     lookup = [b for biz in lookup for b in biz]
+    sep = '?adjust_creative'
+    for l in lookup:
+        l['url'] = l['url'].split(sep)[0]
 
     ## Step 3: create 'names' and 'phones' lists to update reviews data using 'lookup' list
     names = []
     phones = []
-    for url in clean_urls:
+    for url in urls:
         temp_names = []
         temp_phones = []
         for l in lookup:
@@ -87,19 +87,19 @@ def clean_data(reviews, menus, urls, biz_data):
 
 
 if __name__ == '__main__':
-    with open('data/reviews.json', 'rb') as f:
+    with open('data/reviews_raw.json', 'r') as f:
         reviews = json.load(f)
 
-    with open('data/menus.json', 'rb') as f:
+    with open('data/menus.json', 'r') as f:
         menus = json.load(f)
 
     with open('data/review_urls.pkl', 'rb') as f:
-        urls = json.load(f)
+        urls = pickle.load(f)
 
-    with open('data/biz_data.json', 'rb') as f:
+    with open('data/biz_data_clean.json', 'r') as f:
         biz_data = json.load(f)
 
-    cleaned_reviews = clean_data(reviews, menus, urls, biz_data)
+    reviews_clean = clean_data(reviews, menus, urls, biz_data)
 
     with open('data/reviews_clean.json', 'w') as f:
         json.dump(reviews_clean, f)

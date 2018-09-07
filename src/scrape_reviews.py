@@ -138,18 +138,16 @@ def get_reviews(review_urls):
             r = requests.get(url)
             soup = BeautifulSoup(r.text, 'html.parser')
 
-            phone = soup.find(class_='biz-phone').text.strip().replace('(','+').replace(')','').replace('-','').replace(' ','')
-
             reviews = []
             for item in soup.find_all(class_='review-content'):
+                rating = float(item.find('img')['alt'].replace(' star rating',''))
                 for p in item.find_all('p',{'lang':'en'}):
                     for br in p.find_all('br'):
                         br.replace_with('\n')
                     reviews.append(p.text)
 
-            rest_dict = {'phone': phone}
+            rest_dict = {'url': url}
             rest_dict['reviews'] = reviews
-            rest_dict['url'] = url
 
             yelp_reviews.append(rest_dict)
 
@@ -165,12 +163,12 @@ if __name__ == '__main__':
     print('get phone numbers completed')
 
     biz_data = get_yelp_biz_data(phone_list)
-    with open('data/biz_data.json', 'w') as f:
+    with open('data/biz_data_raw.json', 'w') as f:
         json.dump(biz_data, f)
     print('get Yelp business data completed')
 
     cleaned_data = clean_biz_data(biz_data)
-    with open('data/cleaned_biz_data.json', 'w') as f:
+    with open('data/biz_data_clean.json', 'w') as f:
         json.dump(biz_data, f)
     print('clean business data completed')
 
@@ -180,6 +178,6 @@ if __name__ == '__main__':
     print('get review page URLs completed')
 
     yelp_reviews = get_reviews(review_urls)
-    with open('data/reviews.json', 'w') as f:
+    with open('data/reviews_raw.json', 'w') as f:
         json.dump(yelp_reviews, f)
     print('get Yelp reviews completed...done scraping!')

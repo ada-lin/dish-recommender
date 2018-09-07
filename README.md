@@ -1,14 +1,14 @@
 # Menu Cheatsheets NYC
 **Galvanize 12 Week Data Science Immersive Program - New York, NY - September 2018**
 
-<img src="img/landing.png" alt="landing" width="750"/>
-
 ## Background
 As a food enthusiast (I hate the term 'foodie') living in New York, I rely heavily on review aggregator sites to guide my culinary adventures and satisfy my incessant appetite for discovering new restaurants (and for emptying my wallet). In fact, I can't remember the last time I visited a restaurant without checking out its Yelp page first. Like me, many people browse Yelp to help them decide on a place to eat. But even after picking a destination, diners are faced with more choices when sitting down and ordering from a foreign or notoriously long menu of food options (I'm looking at you, The Cheesecake Factory). In such cases, Yelp reviews come in handy again, as they often contain valuable tips from past diners about dishes that they liked or disliked.
 
 The motivation behind my project was to build a machine learning model that would perform this process so that diners would not have to manually scour reviews for menu item recommendations and instead, be able to spend a few more minutes catching up with friends at the table (or flipping through their Instagram feed). While Yelp did roll out a 'Popular Dishes' feature in June 2018 that attempts to tackle this proposition, it currently does not include information about disliked dishes. My project, on the other hand, reveals both popular and unpopular dishes for restaurants so that diners can be equally informed about what to order and what to avoid.
 
 The final deliverable for my project was a web app, powered by my algorithm, on which users can look up a restaurant by name and receive a "cheatsheet" that contains information on the best and worst menu items, according to Yelp reviews.
+
+<img src="img/landing.png" alt="landing" width="750"/>
 
 <img src="img/search.png" alt="search" width="750"/>
 
