@@ -146,7 +146,7 @@ if __name__ == '__main__':
     client = pymongo.MongoClient()
     db_name = 'nyc_restaurants'
     db = client[db_name]
-    # db.drop_collection('recommendations')
+    db.drop_collection('recommendations')
     collection_name = 'recommendations'
     RECS = db[collection_name]
     RECS.create_index([('name', ASCENDING)], unique=False)
