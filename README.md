@@ -8,7 +8,7 @@ The motivation behind my project was to build a machine learning model that woul
 
 The final deliverable for my project was a web app, powered by my algorithm, on which users can look up a restaurant by name and receive a "cheatsheet" that contains information on the best and worst menu items, according to Yelp reviews.
 
-<img src="img/search.gif" alt="web app animation" width="750"/>
+<img src="img/search_demo.gif" alt="web app demo" width="750"/>
 
 ## Data Collection
 My project required two types of data:
