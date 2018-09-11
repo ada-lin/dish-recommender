@@ -8,9 +8,7 @@ The motivation behind my project was to build a machine learning model that woul
 
 The final deliverable for my project was a web app, powered by my algorithm, on which users can look up a restaurant by name and receive a "cheatsheet" that contains information on the best and worst menu items, according to Yelp reviews.
 
-<img src="img/landing.png" alt="landing" width="750"/>
-
-<img src="img/search.png" alt="search" width="750"/>
+<img src="img/search.gif" alt="web app animation" width="750"/>
 
 ## Data Collection
 My project required two types of data:
@@ -50,8 +48,6 @@ Using these two techniques, I built a class called DishRanker that would analyze
 
 ## Data Product
 I ran my model on each restaurant in my dataset and then stored the results of the best and worst dishes, as well as some restaurant metadata, on MongoDB. Using Flask and Bootstrap, I created a web app that pulls the data from MongoDB and presents my recommendations for each restaurant in a "cheatsheet."
-
-<img src="img/cheatsheet.png" alt="cheatsheet" width="750"/>
 
 <img src="img/crowd_favs.gif" alt="crowd favorites" width="750"/>
 
