@@ -333,6 +333,13 @@ input[type=submit] {
   }
 }
 
+.browse{
+  background: #212529;
+  color: white;
+  padding-top: 4rem;
+  padding-bottom: 0.5rem;
+}
+
 .text-primary {
   color: #F05F40 !important;
 }
