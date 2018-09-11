@@ -1,7 +1,7 @@
 from src.model import *
 import json
 
-def insights(reviews_data):
+def get_crowd_favorites(reviews_data):
 
     all_items = []
     for i, d in enumerate(reviews_data):
@@ -18,21 +18,17 @@ def insights(reviews_data):
 
     all_items = [item for restaurant in all_items for item in restaurant]
     all_polarities = [a[2] for a in all_items]
-
     ranked = np.argsort(all_polarities)
-    best = [all_items[index] for index in ranked[::-1][:3]]
-    worst = [all_items[index] for index in ranked[:3]]
+    top_items = [all_items[index] for index in ranked[::-1][:500]]
 
-    return best, worst
+    return top_items
 
 
 if __name__ == '__main__':
+
     with open('data/reviews_clean.json', 'r') as f:
         data = json.load(f)
 
-    best, worst = insights(data)
+    top_items = get_crowd_favorites(data)
 
-    print('best:')
-    print(best)
-    print('worst:')
-    print(worst)
+    print('Top menu items of all restaurants, ranked in descending order:', top_items)

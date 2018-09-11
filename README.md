@@ -53,6 +53,9 @@ I ran my model on each restaurant in my dataset and then stored the results of t
 
 <img src="img/cheatsheet.png" alt="cheatsheet" width="750"/>
 
+<img src="img/crowd_favs.gif" alt="crowd favorites" width="750"/>
+
+
 ## Limitations and Next Steps
 Limitations:
 - Model evaluation: no metric to evaluate how well the model performs
