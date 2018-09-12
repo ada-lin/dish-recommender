@@ -153,7 +153,7 @@ if __name__ == '__main__':
     RECS.create_index([('name', ASCENDING)], unique=False)
 
     # Load 'reviews' data
-    with open('data/reviews_clean.json', 'rb') as f:
+    with open('data/reviews_clean.json', 'r') as f:
         data = json.load(f)
 
     # Pickle list of restaurant names, to be used in web app
