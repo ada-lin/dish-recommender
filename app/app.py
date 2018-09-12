@@ -1,8 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template
 import pymongo
-import json
-import pickle
-import requests
 
 
 app = Flask(__name__)
