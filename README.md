@@ -1,15 +1,24 @@
 # Menu Cheatsheets NYC
 **Galvanize 12 Week Data Science Immersive Program - New York, NY - September 2018**
 
+## Table of Contents
+- Background (#background)
+- Data Collection (#data-collection)
+- Data Cleaning (#data-cleaning)
+- Model Building (#model-building)
+- Data Product (#data-product)
+- Limitations and Future Goals (#limitations-and-future-goals)
+- Tools (#tools)
+
 ## Background
 As a food enthusiast (I hate the term 'foodie') living in New York, I rely heavily on review aggregator sites to guide my culinary adventures and satisfy my incessant appetite for discovering new restaurants (and for emptying my wallet). In fact, I can't remember the last time I visited a restaurant without checking out its Yelp page first. Like me, many people browse Yelp to help them decide on a place to eat. But even after picking a destination, diners are faced with more choices when sitting down and ordering from a foreign or notoriously long menu of food options (I'm looking at you, The Cheesecake Factory). In such cases, Yelp reviews come in handy again, as they often contain valuable tips from past diners about dishes that they liked or disliked.
 
-The motivation behind my project was to build a machine learning model that would perform this process so that diners would not have to manually scour reviews for menu item recommendations and instead, be able to spend a few more minutes catching up with friends at the table (or flipping through their Instagram feed). While Yelp did roll out a 'Popular Dishes' feature in June 2018 that attempts to tackle this proposition, it currently does not include information about disliked dishes. My project, on the other hand, reveals both popular and unpopular dishes for restaurants so that diners can be equally informed about what to order and what to avoid.
+The motivation behind my project was to build a machine learning model that would automate this process so that diners would not have to manually scour reviews for menu item recommendations and instead, be able to spend a few more minutes catching up with friends at the table (or flipping through their Instagram feed). While Yelp did roll out a 'Popular Dishes' feature in June 2018 that attempts to tackle this proposition, it currently does not include information about disliked dishes. My project, on the other hand, reveals both popular and unpopular dishes for restaurants so that diners can be equally informed about what to order and what to avoid.
 
-The final deliverable for my project was a web app, powered by my algorithm, on which users can look up a restaurant by name and receive a "cheatsheet" that contains information on the best and worst menu items, according to Yelp reviews.
+The final deliverable for my project is a web app, powered by my algorithm, on which users can look up a restaurant by name and receive a "cheatsheet" that contains information on the best and worst menu items, according to Yelp reviews.
 
 <img src="img/search_demo.gif" alt="web app demo" width="750"/>
-See it live: 18.216.75.143
+Check it out live by using this address in your browser: 18.216.75.143
 
 ## Data Collection
 My project required two types of data:
@@ -32,15 +41,22 @@ The main headache for this part was that the Yelp phone search API sometimes ret
 I also removed menu items with prices under $3, as these were mostly beverages or small side dishes, which were not the main focus of my recommendation engine.
 
 ## Model Building
-The model I used to inform my recommendations relied on two techniques in Natural Language Processing: Named Entity Recognition and Sentiment Analysis. I used named entity recognition to identify where menu items were mentioned in the Yelp reviews and then performed sentiment analysis to determine whether the items were mentioned in a positive manner or negatively.
+The model I used to inform my recommendations relied on two techniques in Natural Language Processing: Named Entity Recognition and Sentiment Analysis. I used named entity recognition to identify where menu items were mentioned in the Yelp reviews and then performed sentiment analysis to determine whether the items were mentioned in a positive manner or a negative manner.
 
 ### Named Entity Recognition
+In order to rate each restaurant's menu items, I had to figure out how to identify mentions of specific dishes in the reviews and then match those up to their menu designations. This task would be way easier if every Yelp reviewer referred to a dish by its proper name on the menu. However, natural language is messier than this and people do not always call dishes by their menu name, often using colloquial or generic phrases to refer to those dishes instead. For example:
+
+[menu name example]
+[review example]
+
 - split each review up by sentence
 - used TextBlob's entities tagger to filter out only named entities in each sentence
 - trained a tfidf vectorizer on the restaurant's menu item names
 - computed cosine similarity for each sentence (with named entities only) with each menu item and considered a "match" to be when cosine similarity > 0.6
 
 ### Sentiment Analysis
+After picking out the named entities using my matching algorithm, I then needed to calculate how
+
 Instead of relying on review ratings to determine the polarity of a Yelp review, I wanted to analyze each sentence in the review separately. I chose to do so because I figured that within the same review, a user could mention dishes that they both liked and disliked. Additionally, ratings are influenced by factors other than food satisfaction, such as restaurant service and ambiance. I did not want these factors influencing my dish recommendations, so I chose to analyze only those sentences that mentioned menu items (identified through my named entity recognition model).
 
 I calculated the polarities of these sentences by initiating a TextBlob object for each sentence and then using the `sentiment.polarity` attribute from the class. The polarity score ranges from -1 to 1, with positive scores representing favorable attitudes and more negative scores representing the degree of dislike.
@@ -53,7 +69,7 @@ I ran my model on each restaurant in my dataset and then stored the results of t
 <img src="img/crowd_favs.gif" alt="crowd favorites" width="750"/>
 
 
-## Limitations and Next Steps
+## Limitations and Future Goals
 Limitations:
 - Model evaluation: no metric to evaluate how well the model performs
 - Sentiment analysis: hard time detecting irony or sarcasm
@@ -93,6 +109,7 @@ Other Goals:
 ### Data Product
 - Flask
 - Bootstrap
+- Jinja2
 - HTML
 - CSS
 - JavaScript
