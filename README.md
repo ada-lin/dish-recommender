@@ -10,6 +10,7 @@
 - Limitations and Future Goals (#limitations-and-future-goals)
 - Tools (#tools)
 
+<!-- toc -->
 ## Background
 As a food enthusiast (I hate the term 'foodie') living in New York, I rely heavily on review aggregator sites to guide my culinary adventures and satisfy my incessant appetite for discovering new restaurants (and for emptying my wallet). In fact, I can't remember the last time I visited a restaurant without checking out its Yelp page first. Like me, many people browse Yelp to help them decide on a place to eat. But even after picking a destination, diners are faced with more choices when sitting down and ordering from a foreign or notoriously long menu of food options (I'm looking at you, The Cheesecake Factory). In such cases, Yelp reviews come in handy again, as they often contain valuable tips from past diners about dishes that they liked or disliked.
 
